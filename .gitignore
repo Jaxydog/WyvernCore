@@ -1,0 +1,4 @@
+library/
+logs/
+node_modules/
+*.old.*
