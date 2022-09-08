@@ -142,6 +142,7 @@ export class WyvernClient {
 	public async connect() {
 		this.client.once("ready", async () => {
 			this.logger.info(`Connected to the API as ${this.client.user!.tag}`)
+			await this.action.commands.register()
 			this.timer.start()
 			await this.timer.tick()
 		})
