@@ -70,7 +70,7 @@ export class WyvernClient {
 		this.env.set("timer_delay", settings.timer_interval ?? 30_000)
 
 		this.logger = new Logger()
-		this.logger.colors.create("main", this.env.get("color")!)
+		this.logger.colors.create("main", this.color)
 		this.logger.colors.create("other", "gray-bright")
 		this.logger.colors.create("info", "blue-bright")
 		this.logger.colors.create("warn", "yellow-bright")
