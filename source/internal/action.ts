@@ -117,7 +117,9 @@ export abstract class BaseActionManager<I extends BaseInteraction> {
 						await interaction.reply({ embeds: [embed], ephemeral: true })
 					}
 				} catch (error) {
-					this._bot.logger.error(`Error sending error embed for ${type} ${raw_id}\n\t-> ${error}`)
+					this._bot.logger.error(
+						`Error sending error embed for ${type} ${raw_id}\n\t-> ${result.reason}\n\t-> ${error}`
+					)
 				}
 			}
 		} else {
