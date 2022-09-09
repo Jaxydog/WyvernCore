@@ -26,7 +26,7 @@ export interface RequestSettings {
 /** Default data storage location */
 const DEFAULT_DATA_ROOT = "data"
 /** Default storage request settings */
-const DEFAULT_REQUEST_SETTINGS: Required<RequestSettings> = {
+const DEFAULT_REQUEST_SETTINGS: RequestSettings = {
 	deny_read: false,
 	deny_write: false,
 	data_type: "json",
