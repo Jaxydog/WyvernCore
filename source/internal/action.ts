@@ -96,7 +96,7 @@ export abstract class BaseActionManager<I extends BaseInteraction> {
 		const context = new ActionContext<I>(this._bot, interaction, custom_data)
 		const type = interaction.constructor.name
 
-		if (this._callbacks.has(id)) {
+		if (this._callbacks.has(raw_id)) {
 			const callback = this._callbacks.get(raw_id)!
 			const result = await autoCatch(callback(context))
 

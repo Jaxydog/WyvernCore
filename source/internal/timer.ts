@@ -29,7 +29,9 @@ export class Timer {
 	}
 	/** Triggers all timer callbacks */
 	public async tick() {
-		return await Promise.all([...this.__callbacks.values()].map(async (c) => await autoCatch(c(this.__client))))
+		for (const callback of this.__callbacks.values()) {
+			await autoCatch(callback(this.__client))
+		}
 	}
 	/**
 	 * Adds a callback to the timer and returns its identifier
