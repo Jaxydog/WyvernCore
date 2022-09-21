@@ -21,7 +21,7 @@ export class Timer {
 	/** Starts the timer */
 	public start() {
 		this.stop()
-		this.__timer = setInterval(() => this.tick(), this.delay)
+		this.__timer = setInterval(async () => await this.tick(), this.delay)
 	}
 	/** Stops the timer */
 	public stop() {
@@ -30,7 +30,8 @@ export class Timer {
 	/** Triggers all timer callbacks */
 	public async tick() {
 		for (const callback of this.__callbacks.values()) {
-			await autoCatch(callback(this.__client))
+			const result = await autoCatch(callback(this.__client))
+			if (!result.success) this.__client.logger.error(result.reason)
 		}
 	}
 	/**
