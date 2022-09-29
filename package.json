@@ -1,6 +1,6 @@
 {
 	"name": "@jaxydog/wyverncore",
-	"version": "1.0.9",
+	"version": "1.0.10",
 	"description": "discord.js wrapper for creating bots (a bit) more easily",
 	"main": "library/index.js",
 	"types": "library/index.d.ts",

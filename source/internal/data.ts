@@ -614,8 +614,8 @@ export class DualStorage extends AsyncStorage {
 	public async get<T = unknown>(key: string, settings = DEFAULT_REQUEST_SETTINGS) {
 		const cache = this.__cache.get<T>(key, settings)
 		const files = cache !== undefined ? await this.__files.get<T>(key, settings) : undefined
-		if (cache === undefined) this.__cache.set<T>(key, files!, settings)
-		return this.__cache.get<T>(key, settings) ?? (await this.__files.get(key, settings))
+		if (cache === undefined && files !== undefined) this.__cache.set<T>(key, files, settings)
+		return (cache ?? files) as T | undefined
 	}
 	public async set<T = unknown>(key: string, data: T, settings = DEFAULT_REQUEST_SETTINGS) {
 		const cache = this.__cache.set(key, data, settings) || (settings.ignore_cache ?? false)
