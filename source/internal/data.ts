@@ -618,11 +618,13 @@ export class DualStorage extends AsyncStorage {
 		return this.__cache.get<T>(key, settings) ?? (await this.__files.get(key, settings))
 	}
 	public async set<T = unknown>(key: string, data: T, settings = DEFAULT_REQUEST_SETTINGS) {
-		const cache = this.__cache.set(key, data, settings)
-		const files = await this.__files.set(key, data, settings)
+		const cache = this.__cache.set(key, data, settings) || (settings.ignore_cache ?? false)
+		const files = (await this.__files.set(key, data, settings)) || (settings.ignore_files ?? false)
 		return cache && files
 	}
 	public async del(key: string, settings = DEFAULT_REQUEST_SETTINGS) {
-		return this.__cache.del(key, settings) && (await this.__files.del(key, settings))
+		const cache = this.__cache.del(key, settings) || (settings.ignore_cache ?? false)
+		const files = (await this.__files.del(key, settings)) || (settings.ignore_files ?? false)
+		return cache && files
 	}
 }
