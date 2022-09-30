@@ -1,6 +1,6 @@
 import Logger, { Level, Rule } from "@jaxydog/clogts"
 import dayjs from "dayjs"
-import { BitFieldResolvable, Client, GatewayIntentsString } from "discord.js"
+import { BitFieldResolvable, Client, GatewayIntentsString, Partials } from "discord.js"
 import {
 	ButtonActionManager,
 	CommandActionManager,
@@ -20,6 +20,8 @@ export interface ClientSettings {
 	token: string
 	/** Client gateway intents bitfield */
 	intents: BitFieldResolvable<GatewayIntentsString, number>
+	/** Client gateway partials array */
+	partials?: Partials[]
 	/** Log header; defaults to `Wyvern Client` */
 	header?: string
 	/** Log color; defaults to `#5865F2` */
@@ -83,7 +85,7 @@ export class WyvernClient {
 		this.logger.enabled = this.logs_enabled
 		this.logger.store = this.logs_stored
 
-		this.client = new Client({ intents: settings.intents })
+		this.client = new Client({ intents: settings.intents, partials: settings.partials ?? [] })
 
 		this.timer = new Timer(this)
 		this.__buttons = new ButtonActionManager(this)
